@@ -227,7 +227,7 @@ local function X(Y, Z)
     if workspace.CurrentCamera.ViewportSize.X < 800 or workspace.CurrentCamera.ViewportSize.Y < 600 then
         Y.Size = UDim2.new(0, 150, 0, 40)
     else
-        Y.Size = UDim2.new(0, 250, 0, 60)
+        Y.Size = UDim2.new(0, 400, 0, 60)
     end
 end
 
