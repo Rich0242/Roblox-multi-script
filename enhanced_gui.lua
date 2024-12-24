@@ -2,6 +2,7 @@ local a = game:GetService("Players")
 local b = game:GetService("TweenService")
 local c = game:GetService("UserInputService")
 local d = game:GetService("Lighting")
+local UserInputService = game:GetService("UserInputService")
 
 local e = a.LocalPlayer
 local f = e:WaitForChild("PlayerGui")
@@ -177,59 +178,80 @@ local function F(G, H, I, J, K)
     return L
 end
 
-local function R()
-    t:Destroy()
-    z:Destroy()
+local function handleButtonClick(button, color)
+    button.MouseButton1Down:Connect(function()
+        b:Create(button, TweenInfo.new(0.1), {BackgroundColor3 = color}):Play()
+    end)
+    button.MouseButton1Up:Connect(function()
+        b:Create(button, TweenInfo.new(0.1), {BackgroundColor3 = color}):Play()
+    end)
 end
 
-local function S(T)
-    T()
-    b:Create(A, TweenInfo.new(0.5), {Size = UDim2.new(0, 0, 0, 0), Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
-    wait(0.5)
-    R()
+local function R()
+    if t then t:Destroy() end
+    if z then z:Destroy() end
+end
+
+local function S()
+    if b and A then
+        b:Create(A, TweenInfo.new(0.5), {Size = UDim2.new(0, 0, 0, 0), Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
+        wait(0.5)
+        R()
+    end
 end
 
 local U = F("Website", "Awtns - Website", UDim2.new(0, 0, 0, 0), Color3.fromRGB(41, 128, 185), "rbxassetid://3926305904")
 local V = F("HoHoHubScript", "HoHo Hub", UDim2.new(0, 0, 0, 90), Color3.fromRGB(39, 174, 96), "rbxassetid://3926307971")
 local W = F("AzureScript", "Azure", UDim2.new(0, 0, 0, 180), Color3.fromRGB(230, 126, 34), "rbxassetid://3926305904")
 local X = F("FlyScript", "Fly", UDim2.new(0, 0, 0, 270), Color3.fromRGB(155, 89, 182), "rbxassetid://3926307971")
+local CO = F("CloseGUI", "Close GUI", UDim2.new(0, 0, 0, 360), Color3.fromRGB(231, 76, 60), "rbxassetid://3926305904")
 
 U.MouseButton1Click:Connect(function()
     local Y = "https://awtns.com"
-
     if setclipboard then
         setclipboard(Y)
     end
-
     if os.execute then
         os.execute('start "" "' .. Y .. '"')
     end
-
-    S(function()
-    end)
 end)
 
 V.MouseButton1Click:Connect(function()
-    S(function()
+    local success, err = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
     end)
+    if not success then
+        warn("Failed to load HoHoHubScript: " .. err)
+    end
 end)
 
 W.MouseButton1Click:Connect(function()
-    S(function()
+    local success, err = pcall(function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
     end)
+    if not success then
+        warn("Failed to load AzureScript: " .. err)
+    end
 end)
 
 X.MouseButton1Click:Connect(function()
-    S(function()
+    local success, err = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua"))()
     end)
+    if not success then
+        warn("Failed to load FlyScript: " .. err)
+    end
 end)
 
-A.Size = UDim2.new(0, 0, 0, 0)
-A.Position = UDim2.new(0.5, 0, 0.5, 0)
-b:Create(A, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = UDim2.new(0, 400, 0, 500), Position = UDim2.new(0.5, -200, 0.5, -250)}):Play()
+CO.MouseButton1Click:Connect(function()
+    S()
+end)
+
+if A and b then
+    A.Size = UDim2.new(0, 0, 0, 0)
+    A.Position = UDim2.new(0.5, 0, 0.5, 0)
+    b:Create(A, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = UDim2.new(0, 400, 0, 500), Position = UDim2.new(0.5, -200, 0.5, -250)}):Play()
+end
 
 local Z
 local _ 
@@ -245,9 +267,11 @@ C.InputBegan:Connect(function(a4)
         Z = true
         _ = a4.Position
         a0 = A.Position
+        UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
         a4.Changed:Connect(function()
             if a4.UserInputState == Enum.UserInputState.End then
                 Z = false
+                UserInputService.MouseBehavior = Enum.MouseBehavior.Default
             end
         end)
     end
