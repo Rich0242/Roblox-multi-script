@@ -223,7 +223,7 @@ end)
 
 X.MouseButton1Click:Connect(function()
     S(function()
-        loadstring("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua")()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua"))()
     end)
 end)
 
