@@ -2,7 +2,6 @@ local a = game:GetService("Players")
 local b = game:GetService("TweenService")
 local c = game:GetService("UserInputService")
 local d = game:GetService("Lighting")
-local UserInputService = game:GetService("UserInputService")
 
 local e = a.LocalPlayer
 local f = e:WaitForChild("PlayerGui")
@@ -55,8 +54,8 @@ w.BackgroundTransparency = 1
 local function x()
     local y = workspace.CurrentCamera.ViewportSize
     if y.X < 800 or y.Y < 600 then
-        u.Scale = 0.75
-        v.Size = UDim2.new(0.75, 0, 0.75, 0)
+        u.Scale = 0.5
+        v.Size = UDim2.new(0.5, 0, 0.5, 0)
     else
         u.Scale = 1
         v.Size = UDim2.new(0, 200, 0, 300)
@@ -248,9 +247,15 @@ CO.MouseButton1Click:Connect(function()
 end)
 
 if A and b then
-    A.Size = UDim2.new(0, 0, 0, 0)
-    A.Position = UDim2.new(0.5, 0, 0.5, 0)
-    b:Create(A, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = UDim2.new(0, 400, 0, 500), Position = UDim2.new(0.5, -200, 0.5, -250)}):Play()
+    if workspace.CurrentCamera.ViewportSize.X < 800 or workspace.CurrentCamera.ViewportSize.Y < 600 then
+        A.Size = UDim2.new(0, 250, 0, 300)
+        A.Position = UDim2.new(0.5, -125, 0.5, -150)
+    else
+        A.Size = UDim2.new(0, 400, 0, 500)
+        A.Position = UDim2.new(0.5, -200, 0.5, -250)
+    end
+
+    b:Create(A, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = A.Size, Position = A.Position}):Play()
 end
 
 local Z
@@ -267,11 +272,9 @@ C.InputBegan:Connect(function(a4)
         Z = true
         _ = a4.Position
         a0 = A.Position
-        UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
         a4.Changed:Connect(function()
             if a4.UserInputState == Enum.UserInputState.End then
                 Z = false
-                UserInputService.MouseBehavior = Enum.MouseBehavior.Default
             end
         end)
     end
