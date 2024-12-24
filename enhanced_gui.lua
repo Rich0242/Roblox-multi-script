@@ -58,7 +58,7 @@ local function x()
         v.Size = UDim2.new(0.5, 0, 0.5, 0)
     else
         u.Scale = 1
-        v.Size = UDim2.new(0, 200, 0, 300)
+        v.Size = UDim2.new(0, 400, 0, 300)
     end
 end
 
