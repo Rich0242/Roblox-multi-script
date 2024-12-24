@@ -199,88 +199,88 @@ local function S()
     end
 end
 
-local function showNotification(message)
-    local notification = Instance.new("TextLabel")
-    notification.Size = UDim2.new(0, 300, 0, 50)
-    notification.Position = UDim2.new(0.5, -150, 0, 10)
-    notification.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    notification.TextColor3 = Color3.fromRGB(255, 255, 255)
-    notification.Font = Enum.Font.SourceSans
-    notification.TextSize = 18
-    notification.Text = message
-    notification.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local function T(U)
+    local V = Instance.new("TextLabel")
+    V.Size = UDim2.new(0, 300, 0, 50)
+    V.Position = UDim2.new(0.5, -150, 0, 10)
+    V.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    V.TextColor3 = Color3.fromRGB(255, 255, 255)
+    V.Font = Enum.Font.SourceSans
+    V.TextSize = 18
+    V.Text = U
+    V.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-    local tween = game:GetService("TweenService"):Create(notification, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1, BackgroundTransparency = 1})
-    tween:Play()
-    tween.Completed:Connect(function()
-        notification:Destroy()
+    local W = game:GetService("TweenService"):Create(V, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1, BackgroundTransparency = 1})
+    W:Play()
+    W.Completed:Connect(function()
+        V:Destroy()
     end)
 end
 
-local function styleButton(button)
-    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    button.Font = Enum.Font.SourceSans
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.TextSize = 18
-    button.BorderSizePixel = 0
+local function X(Y, Z)
+    Y.BackgroundColor3 = Z
+    Y.Font = Enum.Font.SourceSans
+    Y.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Y.TextSize = 18
+    Y.BorderSizePixel = 0
 
     if workspace.CurrentCamera.ViewportSize.X < 800 or workspace.CurrentCamera.ViewportSize.Y < 600 then
-        button.Size = UDim2.new(0, 150, 0, 40)
+        Y.Size = UDim2.new(0, 150, 0, 40)
     else
-        button.Size = UDim2.new(0, 400, 0, 60)
+        Y.Size = UDim2.new(0, 250, 0, 60)
     end
 end
 
-local U = F("Website", "Awtns - Website", UDim2.new(0, 0, 0, 0), Color3.fromRGB(41, 128, 185), "rbxassetid://3926305904")
-local V = F("HoHoHubScript", "HoHo Hub", UDim2.new(0, 0, 0, 90), Color3.fromRGB(39, 174, 96), "rbxassetid://3926307971")
-local W = F("AzureScript", "Azure", UDim2.new(0, 0, 0, 180), Color3.fromRGB(230, 126, 34), "rbxassetid://3926305904")
-local X = F("FlyScript", "Fly", UDim2.new(0, 0, 0, 270), Color3.fromRGB(155, 89, 182), "rbxassetid://3926307971")
-local CO = F("CloseGUI", "Close GUI", UDim2.new(0, 0, 0, 360), Color3.fromRGB(231, 76, 60), "rbxassetid://3926305904")
+local a0 = F("Website", "Awtns - Website", UDim2.new(0, 0, 0, 0), Color3.fromRGB(41, 128, 185), "rbxassetid://3926305904")
+local a1 = F("HoHoHubScript", "HoHo Hub", UDim2.new(0, 0, 0, 90), Color3.fromRGB(39, 174, 96), "rbxassetid://3926307971")
+local a2 = F("AzureScript", "Azure", UDim2.new(0, 0, 0, 180), Color3.fromRGB(230, 126, 34), "rbxassetid://3926305904")
+local a3 = F("FlyScript", "Fly", UDim2.new(0, 0, 0, 270), Color3.fromRGB(155, 89, 182), "rbxassetid://3926307971")
+local a4 = F("CloseGUI", "Close GUI", UDim2.new(0, 0, 0, 360), Color3.fromRGB(231, 76, 60), "rbxassetid://3926305904")
 
-styleButton(U)
-styleButton(V)
-styleButton(W)
-styleButton(X)
-styleButton(CO)
+X(a0, Color3.fromRGB(41, 128, 185))
+X(a1, Color3.fromRGB(39, 174, 96))
+X(a2, Color3.fromRGB(230, 126, 34))
+X(a3, Color3.fromRGB(155, 89, 182))
+X(a4, Color3.fromRGB(231, 76, 60))
 
-U.MouseButton1Click:Connect(function()
-    local Y = "https://awtns.com"
+a0.MouseButton1Click:Connect(function()
+    local a5 = "https://awtns.com"
     if setclipboard then
-        setclipboard(Y)
+        setclipboard(a5)
     end
     if os.execute then
-        os.execute('start "" "' .. Y .. '"')
+        os.execute('start "" "' .. a5 .. '"')
     end
 end)
 
-V.MouseButton1Click:Connect(function()
-    local success, err = pcall(function()
+a1.MouseButton1Click:Connect(function()
+    local a6, a7 = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
     end)
-    if not success then
-        showNotification("Failed to load HoHoHubScript: " .. err)
+    if not a6 then
+        T("Failed to load HoHoHubScript: " .. a7)
     end
 end)
 
-W.MouseButton1Click:Connect(function()
-    local success, err = pcall(function()
+a2.MouseButton1Click:Connect(function()
+    local a8, a9 = pcall(function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
     end)
-    if not success then
-        showNotification("Failed to load AzureScript: " .. err)
+    if not a8 then
+        T("Failed to load AzureScript: " .. a9)
     end
 end)
 
-X.MouseButton1Click:Connect(function()
-    local success, err = pcall(function()
+a3.MouseButton1Click:Connect(function()
+    local aa, ab = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua"))()
     end)
-    if not success then
-        showNotification("Failed to load FlyScript: " .. err)
+    if not aa then
+        T("Failed to load FlyScript: " .. ab)
     end
 end)
 
-CO.MouseButton1Click:Connect(function()
+a4.MouseButton1Click:Connect(function()
     S()
 end)
 
@@ -296,30 +296,30 @@ if A and b then
     b:Create(A, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = A.Size, Position = A.Position}):Play()
 end
 
-local Z
-local _ 
-local a0
+local ac
+local ad 
+local ae
 
-local function a1(a2)
-    local a3 = a2.Position - _
-    b:Create(A, TweenInfo.new(0.1), {Position = UDim2.new(a0.X.Scale, a0.X.Offset + a3.X, a0.Y.Scale, a0.Y.Offset + a3.Y)}):Play()
+local function af(ag)
+    local ah = ag.Position - ad
+    b:Create(A, TweenInfo.new(0.1), {Position = UDim2.new(ae.X.Scale, ae.X.Offset + ah.X, ae.Y.Scale, ae.Y.Offset + ah.Y)}):Play()
 end
 
-C.InputBegan:Connect(function(a4)
-    if a4.UserInputType == Enum.UserInputType.MouseButton1 or a4.UserInputType == Enum.UserInputType.Touch then
-        Z = true
-        _ = a4.Position
-        a0 = A.Position
-        a4.Changed:Connect(function()
-            if a4.UserInputState == Enum.UserInputState.End then
-                Z = false
+C.InputBegan:Connect(function(ai)
+    if ai.UserInputType == Enum.UserInputType.MouseButton1 or ai.UserInputType == Enum.UserInputType.Touch then
+        ac = true
+        ad = ai.Position
+        ae = A.Position
+        ai.Changed:Connect(function()
+            if ai.UserInputState == Enum.UserInputState.End then
+                ac = false
             end
         end)
     end
 end)
 
-c.InputChanged:Connect(function(a5)
-    if Z and (a5.UserInputType == Enum.UserInputType.MouseMovement or a5.UserInputType == Enum.UserInputType.Touch) then
-        a1(a5)
+c.InputChanged:Connect(function(aj)
+    if ac and (aj.UserInputType == Enum.UserInputType.MouseMovement or aj.UserInputType == Enum.UserInputType.Touch) then
+        af(aj)
     end
 end)
