@@ -199,11 +199,49 @@ local function S()
     end
 end
 
+local function showNotification(message)
+    local notification = Instance.new("TextLabel")
+    notification.Size = UDim2.new(0, 300, 0, 50)
+    notification.Position = UDim2.new(0.5, -150, 0, 10)
+    notification.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    notification.TextColor3 = Color3.fromRGB(255, 255, 255)
+    notification.Font = Enum.Font.SourceSans
+    notification.TextSize = 18
+    notification.Text = message
+    notification.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local tween = game:GetService("TweenService"):Create(notification, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1, BackgroundTransparency = 1})
+    tween:Play()
+    tween.Completed:Connect(function()
+        notification:Destroy()
+    end)
+end
+
+local function styleButton(button)
+    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    button.Font = Enum.Font.SourceSans
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.TextSize = 18
+    button.BorderSizePixel = 0
+
+    if workspace.CurrentCamera.ViewportSize.X < 800 or workspace.CurrentCamera.ViewportSize.Y < 600 then
+        button.Size = UDim2.new(0, 150, 0, 40)
+    else
+        button.Size = UDim2.new(0, 400, 0, 60)
+    end
+end
+
 local U = F("Website", "Awtns - Website", UDim2.new(0, 0, 0, 0), Color3.fromRGB(41, 128, 185), "rbxassetid://3926305904")
 local V = F("HoHoHubScript", "HoHo Hub", UDim2.new(0, 0, 0, 90), Color3.fromRGB(39, 174, 96), "rbxassetid://3926307971")
 local W = F("AzureScript", "Azure", UDim2.new(0, 0, 0, 180), Color3.fromRGB(230, 126, 34), "rbxassetid://3926305904")
 local X = F("FlyScript", "Fly", UDim2.new(0, 0, 0, 270), Color3.fromRGB(155, 89, 182), "rbxassetid://3926307971")
 local CO = F("CloseGUI", "Close GUI", UDim2.new(0, 0, 0, 360), Color3.fromRGB(231, 76, 60), "rbxassetid://3926305904")
+
+styleButton(U)
+styleButton(V)
+styleButton(W)
+styleButton(X)
+styleButton(CO)
 
 U.MouseButton1Click:Connect(function()
     local Y = "https://awtns.com"
@@ -220,7 +258,7 @@ V.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
     end)
     if not success then
-        warn("Failed to load HoHoHubScript: " .. err)
+        showNotification("Failed to load HoHoHubScript: " .. err)
     end
 end)
 
@@ -229,7 +267,7 @@ W.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
     end)
     if not success then
-        warn("Failed to load AzureScript: " .. err)
+        showNotification("Failed to load AzureScript: " .. err)
     end
 end)
 
@@ -238,7 +276,7 @@ X.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua"))()
     end)
     if not success then
-        warn("Failed to load FlyScript: " .. err)
+        showNotification("Failed to load FlyScript: " .. err)
     end
 end)
 
@@ -248,11 +286,11 @@ end)
 
 if A and b then
     if workspace.CurrentCamera.ViewportSize.X < 800 or workspace.CurrentCamera.ViewportSize.Y < 600 then
-        A.Size = UDim2.new(0, 250, 0, 300)
-        A.Position = UDim2.new(0.5, -125, 0.5, -150)
+        A.Size = UDim2.new(0, 300, 0, 350)
+        A.Position = UDim2.new(0.5, -150, 0.5, -175)
     else
-        A.Size = UDim2.new(0, 400, 0, 500)
-        A.Position = UDim2.new(0.5, -200, 0.5, -250)
+        A.Size = UDim2.new(0, 450, 0, 550)
+        A.Position = UDim2.new(0.5, -225, 0.5, -275)
     end
 
     b:Create(A, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = A.Size, Position = A.Position}):Play()
