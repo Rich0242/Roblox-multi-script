@@ -23,11 +23,11 @@ local colors = {
     text = Color3.fromRGB(240, 240, 240),
     textDark = Color3.fromRGB(240, 240, 240),
     buttonColors = {
-        website = Color3.fromRGB(100, 180, 255),    -- Light Blue
-        hoho = Color3.fromRGB(39, 174, 96),         -- Green
-        azure = Color3.fromRGB(230, 126, 34),       -- Orange
+        redz = Color3.fromRGB(231, 76, 60),         -- Red
+        azure = Color3.fromRGB(100, 180, 255),       -- Light Blue
         fly = Color3.fromRGB(155, 89, 182),         -- Purple
-        infinite = Color3.fromRGB(241, 196, 15)     -- Yellow
+        infinite = Color3.fromRGB(230, 126, 34),   -- Orange
+        speedx = Color3.fromRGB(39, 174, 96)        -- Green
     }
 }
 
@@ -288,11 +288,20 @@ local function createButton(name, text, description, color, parent)
     return button, clickArea
 end
 
+local speedHubXButton, speedHubXClick = createButton(
+    "speedHubXButton",
+    "Speed Hub X",
+    "Load Speed Hub X",
+    colors.buttonColors.speedx,
+    scriptsFrame,
+    Color3.new(1, 1, 1)
+)
+
 local redzHubButton, redzHubClick = createButton(
     "redzHubButton",
     "Redz Hub",
     "Load RedZ script",
-    colors.buttonColors.hoho,
+    colors.buttonColors.redz,
     scriptsFrame,
     Color3.new(1, 1, 1)
 )
@@ -324,11 +333,12 @@ local infiniteYieldButton, infiniteYieldClick = createButton(
     Color3.new(1, 1, 1)
 )
 
-redzHubButton.Position = UDim2.new(0, 0, 0, 0)
-azureButton.Position = UDim2.new(0, 0, 0, 80)
-flyButton.Position = UDim2.new(0, 0, 0, 160)
-infiniteYieldButton.Position = UDim2.new(0, 0, 0, 240)
-scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 320)
+speedHubXButton.Position = UDim2.new(0, 0, 0, 0)
+redzHubButton.Position = UDim2.new(0, 0, 0, 80)
+azureButton.Position = UDim2.new(0, 0, 0, 160)
+flyButton.Position = UDim2.new(0, 0, 0, 240)
+infiniteYieldButton.Position = UDim2.new(0, 0, 0, 320)
+scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 400)
 
 local function createDevInfo(name, info, position)
     local infoFrame = create("Frame", {
@@ -527,6 +537,19 @@ local function showNotification(message, duration)
     end)
 end
 
+speedHubXClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end)
+    if success then
+        showNotification("Speed Hub X Script loaded successfully!", 3, "success")
+        addLog("Loaded Speed Hub X Script")
+    else
+        showNotification("Failed to load Speed Hub X Script: " .. error, 3, "error")
+        addLog("Failed to load Speed Hub X Script: " .. error)
+    end
+end)
+
 redzHubClick.MouseButton1Click:Connect(function()
     local success, error = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))()
@@ -723,6 +746,7 @@ local function applyButtonHoverEffect(button)
     end)
 end
 
+applyButtonHoverEffect(speedHubXButton)
 applyButtonHoverEffect(redzHubButton)
 applyButtonHoverEffect(azureButton)
 applyButtonHoverEffect(flyButton)
@@ -750,5 +774,38 @@ end
 
 updateGuiSize()
 workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateGuiSize)
-showNotification("Bunny Hub loaded successfully!")
+
+local function checkAllServices()
+    local services = {
+        TweenService,
+        Lighting,
+        screenGui,
+        scriptsFrame,
+        speedHubXButton,
+        redzHubButton,
+        azureButton,
+        flyButton,
+        infiniteYieldButton,
+        mainFrame,
+        devInfoFrame,
+        tabsFrame,
+        contentsFrame
+    }
+
+    for _, service in ipairs(services) do
+        if not service then
+            return false
+        end
+    end
+    return true
+end
+
+if checkAllServices() then
+    showNotification("Bunny Hub loaded successfully!")
+    addLog("Bunny Hub is loaded and all functions are successfully installed!")
+else
+    showNotification("Failed to load Bunny Hub. Some services are missing.", 3, "error")
+    addLog("Failed to load Bunny Hub. Some services are missing.")
+end
+
 switchTab("Scripts")
