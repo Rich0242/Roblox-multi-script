@@ -777,8 +777,13 @@ workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateG
 
 local function checkAllServices()
     local services = {
+        Players,
         TweenService,
+        UserInputService,
+        RunService,
         Lighting,
+        player,
+        playerGui,
         screenGui,
         scriptsFrame,
         speedHubXButton,
