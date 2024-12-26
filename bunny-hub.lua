@@ -21,7 +21,7 @@ local colors = {
     accent1 = Color3.fromRGB(100, 180, 255),
     accent2 = Color3.fromRGB(255, 100, 100),
     text = Color3.fromRGB(240, 240, 240),
-    textDark = Color3.fromRGB(180, 180, 180),
+    textDark = Color3.fromRGB(240, 240, 240),
     buttonColors = {
         website = Color3.fromRGB(100, 180, 255),    -- Light Blue
         hoho = Color3.fromRGB(39, 174, 96),         -- Green
@@ -32,7 +32,7 @@ local colors = {
 }
 
 local screenGui = create("ScreenGui", {
-    Name = "BunnyHub",
+    Name = "Bunny-hub",
     ResetOnSpawn = false,
     ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
     Parent = playerGui
@@ -41,8 +41,7 @@ local screenGui = create("ScreenGui", {
 local mainFrame = create("Frame", {
     Name = "MainFrame",
     Size = UDim2.new(0, 700, 0, 500),
-    Position = UDim2.new(0.5, 0, 0.5, 0),
-    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.new(0.5, -350, 0.5, -250),
     BackgroundColor3 = colors.background,
     BorderSizePixel = 0,
     ClipsDescendants = true,
@@ -56,7 +55,7 @@ create("UICorner", {
 
 local titleBar = create("Frame", {
     Name = "TitleBar",
-    Size = UDim2.new(1, 0, 0, 40),
+    Size = UDim2.new(1, 0, 0, 50),
     BackgroundColor3 = colors.foreground,
     BorderSizePixel = 0,
     Parent = mainFrame
@@ -67,7 +66,7 @@ create("UICorner", {
     Parent = titleBar
 })
 
-local titleText = create("TextLabel", {
+create("TextLabel", {
     Name = "TitleText",
     Size = UDim2.new(1, -120, 1, 0),
     Position = UDim2.new(0, 20, 0, 0),
@@ -82,13 +81,13 @@ local titleText = create("TextLabel", {
 
 local minimizeButton = create("TextButton", {
     Name = "MinimizeButton",
-    Size = UDim2.new(0, 30, 0, 30),
-    Position = UDim2.new(1, -70, 0, 5),
+    Size = UDim2.new(0, 36, 0, 36),
+    Position = UDim2.new(1, -92, 0, 7),
     BackgroundColor3 = colors.accent1,
     Text = "-",
     TextColor3 = colors.text,
     Font = Enum.Font.GothamBold,
-    TextSize = 20,
+    TextSize = 24,
     Parent = titleBar
 })
 
@@ -99,13 +98,13 @@ create("UICorner", {
 
 local closeButton = create("TextButton", {
     Name = "CloseButton",
-    Size = UDim2.new(0, 30, 0, 30),
-    Position = UDim2.new(1, -35, 0, 5),
+    Size = UDim2.new(0, 36, 0, 36),
+    Position = UDim2.new(1, -46, 0, 7),
     BackgroundColor3 = colors.accent2,
     Text = "X",
     TextColor3 = colors.text,
     Font = Enum.Font.GothamBold,
-    TextSize = 16,
+    TextSize = 18,
     Parent = titleBar
 })
 
@@ -114,34 +113,24 @@ create("UICorner", {
     Parent = closeButton
 })
 
-local tabContainer = create("ScrollingFrame", {
+local tabContainer = create("Frame", {
     Name = "TabContainer",
-    Size = UDim2.new(1, -20, 0, 30),
-    Position = UDim2.new(0, 10, 0, 50),
+    Size = UDim2.new(1, -40, 0, 40),
+    Position = UDim2.new(0, 20, 0, 60),
     BackgroundTransparency = 1,
-    ScrollBarThickness = 4,
-    ScrollingDirection = Enum.ScrollingDirection.X,
     Parent = mainFrame
 })
 
-local tabLayout = create("UIListLayout", {
-    FillDirection = Enum.FillDirection.Horizontal,
-    HorizontalAlignment = Enum.HorizontalAlignment.Left,
-    SortOrder = Enum.SortOrder.LayoutOrder,
-    Padding = UDim.new(0, 10),
-    Parent = tabContainer
-})
-
-local function createTabButton(name, text, layoutOrder)
+local function createTabButton(name, text, position)
     local button = create("TextButton", {
         Name = name,
         Size = UDim2.new(0, 120, 1, 0),
+        Position = position,
         BackgroundColor3 = colors.foreground,
         Font = Enum.Font.GothamSemibold,
         TextColor3 = colors.text,
         TextSize = 16,
         Text = text,
-        LayoutOrder = layoutOrder,
         Parent = tabContainer
     })
 
@@ -153,17 +142,15 @@ local function createTabButton(name, text, layoutOrder)
     return button
 end
 
-local scriptsTab = createTabButton("ScriptsTab", "Scripts", 1)
-local devInfoTab = createTabButton("DevInfoTab", "Dev-Infos", 2)
-local customTab = createTabButton("CustomTab", "Custom", 3)
-local logsTab = createTabButton("LogsTab", "Logs", 4)
-
-tabContainer.CanvasSize = UDim2.new(0, tabLayout.AbsoluteContentSize.X, 0, 0)
+local scriptsTab = createTabButton("ScriptsTab", "Scripts", UDim2.new(0, 0, 0, 0))
+local devInfoTab = createTabButton("devInfoTab", "Dev-Infos", UDim2.new(0, 130, 0, 0))
+local customTab = createTabButton("CustomTab", "Custom", UDim2.new(0, 260, 0, 0))
+local logsTab = createTabButton("LogsTab", "Logs", UDim2.new(0, 390, 0, 0))
 
 local contentContainer = create("Frame", {
     Name = "ContentContainer",
-    Size = UDim2.new(1, -20, 1, -90),
-    Position = UDim2.new(0, 10, 0, 90),
+    Size = UDim2.new(1, -40, 1, -110),
+    Position = UDim2.new(0, 20, 0, 110),
     BackgroundTransparency = 1,
     ClipsDescendants = true,
     Parent = mainFrame
@@ -183,7 +170,6 @@ local scriptsFrame = create("ScrollingFrame", {
 })
 
 local devInfoFrame = create("ScrollingFrame", {
-    Name = "DevInfoFrame",
     Size = UDim2.new(1, 0, 1, 0),
     CanvasSize = UDim2.new(0, 0, 1, 720),
     ScrollBarThickness = 10,
@@ -224,7 +210,7 @@ local logsLabel = create("TextLabel", {
 })
 
 local logsTextBox = create("TextBox", {
-    Size = UDim2.new(1, 0, 1, -40),
+    Size = UDim2.new(1, 0, 1, -90),
     Position = UDim2.new(0, 0, 0, 40),
     BackgroundColor3 = colors.foreground,
     Font = Enum.Font.Code,
@@ -249,10 +235,11 @@ create("UICorner", {
 
 local function addLog(message)
     local timestamp = os.date("%H:%M:%S")
-    local logMessage = string.format("\n[%s] %s", timestamp, message)
+    local logMessage = string.format("\n[%s] %s\n", timestamp, message)
     logsTextBox.Text = logsTextBox.Text .. logMessage
-    logsTextBox.CursorPosition = #logsTextBox.Text + 1
+    logsTextBox.CursorPosition = logsTextBox.Text + 1
 end
+
 
 local function createButton(name, text, description, color, parent)
     local button = create("Frame", {
@@ -306,7 +293,8 @@ local redzHubButton, redzHubClick = createButton(
     "Redz Hub",
     "Load RedZ script",
     colors.buttonColors.hoho,
-    scriptsFrame
+    scriptsFrame,
+    Color3.new(1, 1, 1)
 )
 
 local azureButton, azureClick = createButton(
@@ -314,7 +302,8 @@ local azureButton, azureClick = createButton(
     "Azure",
     "Load Azure script",
     colors.buttonColors.azure,
-    scriptsFrame
+    scriptsFrame,
+    Color3.new(1, 1, 1)
 )
 
 local flyButton, flyClick = createButton(
@@ -322,7 +311,8 @@ local flyButton, flyClick = createButton(
     "Fly",
     "Load fly script",
     colors.buttonColors.fly,
-    scriptsFrame
+    scriptsFrame,
+    Color3.new(1, 1, 1)
 )
 
 local infiniteYieldButton, infiniteYieldClick = createButton(
@@ -330,7 +320,8 @@ local infiniteYieldButton, infiniteYieldClick = createButton(
     "Infinite Yield",
     "Load Infinite Yield admin script",
     colors.buttonColors.infinite,
-    scriptsFrame
+    scriptsFrame,
+    Color3.new(1, 1, 1)
 )
 
 redzHubButton.Position = UDim2.new(0, 0, 0, 0)
@@ -350,7 +341,7 @@ local function createDevInfo(name, info, position)
 
     local numDevInfos = #devInfoFrame:GetChildren()
     devInfoFrame.CanvasSize = UDim2.new(0, 0, 0, numDevInfos * 91)
-    
+
     create("TextLabel", {
         Size = UDim2.new(0.9, 0, 0, 30),
         Position = UDim2.new(0, 10, 0, 5),
@@ -380,7 +371,7 @@ end
 
 createDevInfo(
     "Creator & Lead Developer",
-    "Mays (bunny24_024)",
+    "Mays (Bunny24_024)",
     UDim2.new(0, 0, 0, 0)
 )
 
@@ -392,7 +383,7 @@ createDevInfo(
 
 createDevInfo(
     "Software Version",
-    "Bunny Hub 6.1",
+    "5.0.0",
     UDim2.new(0, 0, 0, 180)
 )
 
@@ -419,6 +410,8 @@ createDevInfo(
     "Visit us at: https://www.awtns.com",
     UDim2.new(0, 0, 0, 540)
 )
+
+
 
 local customLabel = create("TextLabel", {
     Size = UDim2.new(1, 0, 0, 30),
@@ -539,10 +532,10 @@ redzHubClick.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))()
     end)
     if success then
-        showNotification("redzHub Script loaded successfully!", 3)
+        showNotification("redzHub Script loaded successfully!", 3, "success")
         addLog("Loaded redzHubScript")
     else
-        showNotification("Failed to load redzHub Script: " .. error, 3)
+        showNotification("Failed to load redzHub Script: " .. error, 3, "error")
         addLog("Failed to load redzHub Script: " .. error)
     end
 end)
@@ -552,10 +545,10 @@ azureClick.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
     end)
     if success then
-        showNotification("AzureScript loaded successfully!", 3)
+        showNotification("AzureScript loaded successfully!", 3, "success")
         addLog("Loaded AzureScript")
     else
-        showNotification("Failed to load AzureScript: " .. error, 3)
+        showNotification("Failed to load AzureScript: " .. error, 3, "error")
         addLog("Failed to load AzureScript: " .. error)
     end
 end)
@@ -565,10 +558,10 @@ flyClick.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua"))()
     end)
     if success then
-        showNotification("FlyScript loaded successfully!", 3)
+        showNotification("FlyScript loaded successfully!", 3, "success")
         addLog("Loaded FlyScript")
     else
-        showNotification("Failed to load FlyScript: " .. error, 3)
+        showNotification("Failed to load FlyScript: " .. error, 3, "error")
         addLog("Failed to load FlyScript: " .. error)
     end
 end)
@@ -578,17 +571,17 @@ infiniteYieldClick.MouseButton1Click:Connect(function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
     end)
     if success then
-        showNotification("Infinite Yield loaded successfully!", 3)
+        showNotification("Infinite Yield loaded successfully!", 3, "success")
         addLog("Loaded Infinite Yield")
     else
-        showNotification("Failed to load Infinite Yield: " .. error, 3)
+        showNotification("Failed to load Infinite Yield: " .. error, 3, "error")
         addLog("Failed to load Infinite Yield: " .. error)
     end
 end)
 
 executeCustomButton.MouseButton1Click:Connect(function()
     if customTextBox.Text == "" or customTextBox.Text == "-- Enter your custom Lua script here --" then
-        showNotification("Custom script field is empty!", 3)
+        showNotification("Custom script field is empty!", 3, "error")
         addLog("Failed to execute custom script: Custom script field is empty")
         return
     end
@@ -597,10 +590,10 @@ executeCustomButton.MouseButton1Click:Connect(function()
         loadstring(customTextBox.Text)()
     end)
     if success then
-        showNotification("Custom script executed successfully!", 3)
+        showNotification("Custom script executed successfully!", 3, "success")
         addLog("Executed custom script")
     else
-        showNotification("Failed to execute custom script: " .. error, 3)
+        showNotification("Failed to execute custom script: " .. error, 3, "error")
         addLog("Failed to execute custom script: " .. error)
     end
 end)
@@ -615,48 +608,12 @@ closeButton.MouseButton1Click:Connect(function()
 end)
 
 local minimized = false
-local lastSize = UDim2.new(0, 700, 0, 500)
-local isMobile = false
-
-local function updateGuiSize()
-    local viewportSize = workspace.CurrentCamera.ViewportSize
-    isMobile = viewportSize.X < 700 or viewportSize.Y < 500
-    
-    if isMobile then
-        lastSize = UDim2.new(0, 300, 0, 300)
-    else
-        lastSize = UDim2.new(0, 700, 0, 500)
-    end
-    
-    if not minimized then
-        TweenService:Create(mainFrame, TweenInfo.new(0.3), {
-            Size = lastSize,
-            Position = UDim2.new(0.5, 0, 0.5, 0)
-        }):Play()
-    end
-    
-    tabContainer.Size = UDim2.new(1, -20, 0, 30)
-    tabContainer.Position = UDim2.new(0, 10, 0, 50)
-    contentContainer.Size = UDim2.new(1, -20, 1, -90)
-    contentContainer.Position = UDim2.new(0, 10, 0, 90)
-    tabContainer.CanvasSize = UDim2.new(0, tabLayout.AbsoluteContentSize.X, 0, 0)
-end
-
 minimizeButton.MouseButton1Click:Connect(function()
     minimized = not minimized
     if minimized then
-        lastSize = mainFrame.Size
-        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, lastSize.X.Offset, 0, 40)}):Play()
-        titleText.Text = "BH"
-        titleText.Position = UDim2.new(0, 10, 0, 0)
-        minimizeButton.Position = UDim2.new(1, -70, 0, 5)
-        closeButton.Position = UDim2.new(1, -35, 0, 5)
+        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, 700, 0, 50)}):Play()
     else
-        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = lastSize}):Play()
-        titleText.Text = "Bunny Hub"
-        titleText.Position = UDim2.new(0, 20, 0, 0)
-        minimizeButton.Position = UDim2.new(1, -70, 0, 5)
-        closeButton.Position = UDim2.new(1, -35, 0, 5)
+        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, 700, 0, 500)}):Play()
     end
 end)
 
@@ -693,7 +650,7 @@ local dragStart
 local startPos
 
 titleBar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
         dragging = true
         dragStart = input.Position
         startPos = mainFrame.Position
@@ -701,13 +658,13 @@ titleBar.InputBegan:Connect(function(input)
 end)
 
 titleBar.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
         dragging = false
     end
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
         local delta = input.Position - dragStart
         TweenService:Create(mainFrame, TweenInfo.new(0.1), {
             Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
@@ -719,7 +676,7 @@ mainFrame.Size = UDim2.new(0, 0, 0, 0)
 mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 TweenService:Create(mainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
     Size = UDim2.new(0, 700, 0, 500),
-    Position = UDim2.new(0.5, 0, 0.5, 0)
+    Position = UDim2.new(0.5, -350, 0.5, -250)
 }):Play()
 
 local blurEffect = create("BlurEffect", {
@@ -772,8 +729,26 @@ applyButtonHoverEffect(flyButton)
 applyButtonHoverEffect(infiniteYieldButton)
 applyButtonHoverEffect(executeCustomButton)
 
+local function updateGuiSize()
+    local viewportSize = workspace.CurrentCamera.ViewportSize
+    local scale = math.clamp(viewportSize.Y / 1080, 0.5, 1)
+    local newSize, newPosition
+
+    if viewportSize.X < 800 then
+        newSize = UDim2.new(0, 400 * scale, 0, 300 * scale)
+        newPosition = UDim2.new(0.5, -175 * scale, 0.5, -125 * scale)
+    else
+        newSize = UDim2.new(0, 700 * scale, 0, 500 * scale)
+        newPosition = UDim2.new(0.5, -350 * scale, 0.5, -250 * scale)
+    end
+
+    TweenService:Create(mainFrame, TweenInfo.new(0.3), {
+        Size = newSize,
+        Position = newPosition
+    }):Play()
+end
+
 updateGuiSize()
 workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateGuiSize)
-
 showNotification("Bunny Hub loaded successfully!")
 switchTab("Scripts")
