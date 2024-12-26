@@ -1,473 +1,754 @@
-local main = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local up = Instance.new("TextButton")
-local down = Instance.new("TextButton")
-local onof = Instance.new("TextButton")
-local TextLabel = Instance.new("TextLabel")
-local plus = Instance.new("TextButton")
-local speed = Instance.new("TextLabel")
-local mine = Instance.new("TextButton")
-local closebutton = Instance.new("TextButton")
-local mini = Instance.new("TextButton")
-local mini2 = Instance.new("TextButton") 
- 
-main.Name = "main"
-main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-main.ResetOnSpawn = false 
- 
-Frame.Parent = main
-Frame.BackgroundColor3 = Color3.fromRGB(163, 255, 137)
-Frame.BorderColor3 = Color3.fromRGB(103, 221, 213)
-Frame.Position = UDim2.new(0.100320168, 0, 0.379746825, 0)
-Frame.Size = UDim2.new(0, 190, 0, 57) 
- 
-up.Name = "up"
-up.Parent = Frame
-up.BackgroundColor3 = Color3.fromRGB(79, 255, 152)
-up.Size = UDim2.new(0, 44, 0, 28)
-up.Font = Enum.Font.SourceSans
-up.Text = "UP"
-up.TextColor3 = Color3.fromRGB(0, 0, 0)
-up.TextSize = 14.000 
- 
-down.Name = "down"
-down.Parent = Frame
-down.BackgroundColor3 = Color3.fromRGB(215, 255, 121)
-down.Position = UDim2.new(0, 0, 0.491228074, 0)
-down.Size = UDim2.new(0, 44, 0, 28)
-down.Font = Enum.Font.SourceSans
-down.Text = "DOWN"
-down.TextColor3 = Color3.fromRGB(0, 0, 0)
-down.TextSize = 14.000 
- 
-onof.Name = "onof"
-onof.Parent = Frame
-onof.BackgroundColor3 = Color3.fromRGB(255, 249, 74)
-onof.Position = UDim2.new(0.702823281, 0, 0.491228074, 0)
-onof.Size = UDim2.new(0, 56, 0, 28)
-onof.Font = Enum.Font.SourceSans
-onof.Text = "fly"
-onof.TextColor3 = Color3.fromRGB(0, 0, 0)
-onof.TextSize = 14.000 
- 
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(242, 60, 255)
-TextLabel.Position = UDim2.new(0.469327301, 0, 0, 0)
-TextLabel.Size = UDim2.new(0, 100, 0, 28)
-TextLabel.Font = Enum.Font.SourceSans
-TextLabel.Text = "Fly"
-TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.TextScaled = true
-TextLabel.TextSize = 14.000
-TextLabel.TextWrapped = true 
- 
-plus.Name = "plus"
-plus.Parent = Frame
-plus.BackgroundColor3 = Color3.fromRGB(133, 145, 255)
-plus.Position = UDim2.new(0.231578946, 0, 0, 0)
-plus.Size = UDim2.new(0, 45, 0, 28)
-plus.Font = Enum.Font.SourceSans
-plus.Text = "+"
-plus.TextColor3 = Color3.fromRGB(0, 0, 0)
-plus.TextScaled = true
-plus.TextSize = 14.000
-plus.TextWrapped = true 
- 
-speed.Name = "speed"
-speed.Parent = Frame
-speed.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
-speed.Position = UDim2.new(0.468421042, 0, 0.491228074, 0)
-speed.Size = UDim2.new(0, 44, 0, 28)
-speed.Font = Enum.Font.SourceSans
-speed.Text = "1"
-speed.TextColor3 = Color3.fromRGB(0, 0, 0)
-speed.TextScaled = true
-speed.TextSize = 14.000
-speed.TextWrapped = true 
- 
-mine.Name = "mine"
-mine.Parent = Frame
-mine.BackgroundColor3 = Color3.fromRGB(123, 255, 247)
-mine.Position = UDim2.new(0.231578946, 0, 0.491228074, 0)
-mine.Size = UDim2.new(0, 45, 0, 29)
-mine.Font = Enum.Font.SourceSans
-mine.Text = "-"
-mine.TextColor3 = Color3.fromRGB(0, 0, 0)
-mine.TextScaled = true
-mine.TextSize = 14.000
-mine.TextWrapped = true 
- 
-closebutton.Name = "Close"
-closebutton.Parent = main.Frame
-closebutton.BackgroundColor3 = Color3.fromRGB(225, 25, 0)
-closebutton.Font = "SourceSans"
-closebutton.Size = UDim2.new(0, 45, 0, 28)
-closebutton.Text = "X"
-closebutton.TextSize = 30
-closebutton.Position = UDim2.new(0, 0, -1, 27) 
- 
-mini.Name = "minimize"
-mini.Parent = main.Frame
-mini.BackgroundColor3 = Color3.fromRGB(192, 150, 230)
-mini.Font = "SourceSans"
-mini.Size = UDim2.new(0, 45, 0, 28)
-mini.Text = "-"
-mini.TextSize = 40
-mini.Position = UDim2.new(0, 44, -1, 27) 
- 
-mini2.Name = "minimize2"
-mini2.Parent = main.Frame
-mini2.BackgroundColor3 = Color3.fromRGB(192, 150, 230)
-mini2.Font = "SourceSans"
-mini2.Size = UDim2.new(0, 45, 0, 28)
-mini2.Text = "+"
-mini2.TextSize = 40
-mini2.Position = UDim2.new(0, 44, -1, 57)
-mini2.Visible = false 
- 
-speeds = 1 
- 
-local speaker = game:GetService("Players").LocalPlayer 
- 
-local chr = game.Players.LocalPlayer.Character
-local hum = chr and chr:FindFirstChildWhichIsA("Humanoid") 
- 
-nowe = false 
- 
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-Title = "Fly";
-Text = "Loaded"})
-Duration = 5; 
- 
-Frame.Active = true -- main = gui
-Frame.Draggable = true 
- 
-onof.MouseButton1Down:connect(function() 
- 
-if nowe == true then
-nowe = false 
- 
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
-speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
-else 
-nowe = true
- 
- 
- 
-for i = 1, speeds do
-spawn(function() 
- 
-local hb = game:GetService("RunService").Heartbeat
- 
- 
-tpwalking = true
-local chr = game.Players.LocalPlayer.Character
-local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-while tpwalking and hb:Wait() and chr and hum and hum.Parent do
-if hum.MoveDirection.Magnitude > 0 then
-chr:TranslateBy(hum.MoveDirection)
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local function create(className, properties)
+    local instance = Instance.new(className)
+    for k, v in pairs(properties) do
+        instance[k] = v
+    end
+    return instance
 end
-end 
- 
+
+local colors = {
+    background = Color3.fromRGB(25, 25, 35),
+    foreground = Color3.fromRGB(35, 35, 45),
+    accent1 = Color3.fromRGB(100, 180, 255),
+    accent2 = Color3.fromRGB(255, 100, 100),
+    text = Color3.fromRGB(240, 240, 240),
+    textDark = Color3.fromRGB(240, 240, 240),
+    buttonColors = {
+        website = Color3.fromRGB(100, 180, 255),    -- Light Blue
+        hoho = Color3.fromRGB(39, 174, 96),         -- Green
+        azure = Color3.fromRGB(230, 126, 34),       -- Orange
+        fly = Color3.fromRGB(155, 89, 182),         -- Purple
+        infinite = Color3.fromRGB(241, 196, 15)     -- Yellow
+    }
+}
+
+local screenGui = create("ScreenGui", {
+    Name = "Bunny-hub",
+    ResetOnSpawn = false,
+    ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+    Parent = playerGui
+})
+
+local mainFrame = create("Frame", {
+    Name = "MainFrame",
+    Size = UDim2.new(0, 700, 0, 500),
+    Position = UDim2.new(0.5, -350, 0.5, -250),
+    BackgroundColor3 = colors.background,
+    BorderSizePixel = 0,
+    ClipsDescendants = true,
+    Parent = screenGui
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 15),
+    Parent = mainFrame
+})
+
+local titleBar = create("Frame", {
+    Name = "TitleBar",
+    Size = UDim2.new(1, 0, 0, 50),
+    BackgroundColor3 = colors.foreground,
+    BorderSizePixel = 0,
+    Parent = mainFrame
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 15),
+    Parent = titleBar
+})
+
+create("TextLabel", {
+    Name = "TitleText",
+    Size = UDim2.new(1, -120, 1, 0),
+    Position = UDim2.new(0, 20, 0, 0),
+    BackgroundTransparency = 1,
+    Font = Enum.Font.GothamBold,
+    TextColor3 = colors.text,
+    TextSize = 22,
+    Text = "Bunny Hub",
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Parent = titleBar
+})
+
+local minimizeButton = create("TextButton", {
+    Name = "MinimizeButton",
+    Size = UDim2.new(0, 36, 0, 36),
+    Position = UDim2.new(1, -92, 0, 7),
+    BackgroundColor3 = colors.accent1,
+    Text = "-",
+    TextColor3 = colors.text,
+    Font = Enum.Font.GothamBold,
+    TextSize = 24,
+    Parent = titleBar
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 18),
+    Parent = minimizeButton
+})
+
+local closeButton = create("TextButton", {
+    Name = "CloseButton",
+    Size = UDim2.new(0, 36, 0, 36),
+    Position = UDim2.new(1, -46, 0, 7),
+    BackgroundColor3 = colors.accent2,
+    Text = "X",
+    TextColor3 = colors.text,
+    Font = Enum.Font.GothamBold,
+    TextSize = 18,
+    Parent = titleBar
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 18),
+    Parent = closeButton
+})
+
+local tabContainer = create("Frame", {
+    Name = "TabContainer",
+    Size = UDim2.new(1, -40, 0, 40),
+    Position = UDim2.new(0, 20, 0, 60),
+    BackgroundTransparency = 1,
+    Parent = mainFrame
+})
+
+local function createTabButton(name, text, position)
+    local button = create("TextButton", {
+        Name = name,
+        Size = UDim2.new(0, 120, 1, 0),
+        Position = position,
+        BackgroundColor3 = colors.foreground,
+        Font = Enum.Font.GothamSemibold,
+        TextColor3 = colors.text,
+        TextSize = 16,
+        Text = text,
+        Parent = tabContainer
+    })
+
+    create("UICorner", {
+        CornerRadius = UDim.new(0, 10),
+        Parent = button
+    })
+
+    return button
+end
+
+local scriptsTab = createTabButton("ScriptsTab", "Scripts", UDim2.new(0, 0, 0, 0))
+local devInfoTab = createTabButton("devInfoTab", "Dev-Infos", UDim2.new(0, 130, 0, 0))
+local customTab = createTabButton("CustomTab", "Custom", UDim2.new(0, 260, 0, 0))
+local logsTab = createTabButton("LogsTab", "Logs", UDim2.new(0, 390, 0, 0))
+
+local contentContainer = create("Frame", {
+    Name = "ContentContainer",
+    Size = UDim2.new(1, -40, 1, -110),
+    Position = UDim2.new(0, 20, 0, 110),
+    BackgroundTransparency = 1,
+    ClipsDescendants = true,
+    Parent = mainFrame
+})
+
+local scriptsFrame = create("ScrollingFrame", {
+    Name = "ScriptsFrame",
+    Size = UDim2.new(1, 0, 1, 0),
+    BackgroundTransparency = 1,
+    BorderSizePixel = 0,
+    ScrollBarThickness = 6,
+    ScrollingDirection = Enum.ScrollingDirection.Y,
+    CanvasSize = UDim2.new(0, 0, 0, 0),
+    ClipsDescendants = true,
+    Visible = true,
+    Parent = contentContainer
+})
+
+local devInfoFrame = create("ScrollingFrame", {
+    Size = UDim2.new(1, 0, 1, 0),
+    CanvasSize = UDim2.new(0, 0, 1, 720),
+    ScrollBarThickness = 10,
+    BackgroundTransparency = 1,
+    Parent = contentContainer
+})
+
+local customFrame = create("Frame", {
+    Name = "CustomFrame",
+    Size = UDim2.new(1, 0, 1, 0),
+    BackgroundTransparency = 1,
+    BorderSizePixel = 0,
+    ClipsDescendants = true,
+    Visible = false,
+    Parent = contentContainer
+})
+
+local logsFrame = create("Frame", {
+    Name = "LogsFrame",
+    Size = UDim2.new(1, 0, 1, 0),
+    BackgroundTransparency = 1,
+    BorderSizePixel = 0,
+    ClipsDescendants = true,
+    Visible = false,
+    Parent = contentContainer
+})
+
+local logsLabel = create("TextLabel", {
+    Size = UDim2.new(1, 0, 0, 30),
+    Position = UDim2.new(0, 0, 0, 0),
+    BackgroundTransparency = 1,
+    Font = Enum.Font.GothamBold,
+    TextColor3 = colors.text,
+    TextSize = 18,
+    Text = "Execution Logs",
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Parent = logsFrame
+})
+
+local logsTextBox = create("TextBox", {
+    Size = UDim2.new(1, 0, 1, -90),
+    Position = UDim2.new(0, 0, 0, 40),
+    BackgroundColor3 = colors.foreground,
+    Font = Enum.Font.Code,
+    TextColor3 = colors.text,
+    TextSize = 14,
+    Text = "-- GUI Logs will appear here --",
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextYAlignment = Enum.TextYAlignment.Top,
+    ClearTextOnFocus = false,
+    MultiLine = true,
+    TextWrapped = true,
+    ClipsDescendants = true,
+    RichText = true,
+    TextEditable = false,
+    Parent = logsFrame
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 10),
+    Parent = logsTextBox
+})
+
+local function addLog(message)
+    local timestamp = os.date("%H:%M:%S")
+    local logMessage = string.format("\n[%s] %s\n", timestamp, message)
+    logsTextBox.Text = logsTextBox.Text .. logMessage
+    logsTextBox.CursorPosition = logsTextBox.Text + 1
+end
+
+
+local function createButton(name, text, description, color, parent)
+    local button = create("Frame", {
+        Name = name,
+        Size = UDim2.new(1, 0, 0, 70),
+        BackgroundColor3 = color,
+        Parent = parent
+    })
+
+    create("UICorner", {
+        CornerRadius = UDim.new(0, 10),
+        Parent = button
+    })
+
+    create("TextLabel", {
+        Size = UDim2.new(1, -20, 0, 30),
+        Position = UDim2.new(0, 10, 0, 5),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.GothamBold,
+        TextColor3 = colors.text,
+        TextSize = 18,
+        Text = text,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = button
+    })
+
+    create("TextLabel", {
+        Size = UDim2.new(1, -20, 0, 20),
+        Position = UDim2.new(0, 10, 0, 35),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.Gotham,
+        TextColor3 = colors.textDark,
+        TextSize = 14,
+        Text = description,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = button
+    })
+
+    local clickArea = create("TextButton", {
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundTransparency = 1,
+        Text = "",
+        Parent = button
+    })
+
+    return button, clickArea
+end
+
+local redzHubButton, redzHubClick = createButton(
+    "redzHubButton",
+    "Redz Hub",
+    "Load RedZ script",
+    colors.buttonColors.hoho,
+    scriptsFrame,
+    Color3.new(1, 1, 1)
+)
+
+local azureButton, azureClick = createButton(
+    "AzureButton",
+    "Azure",
+    "Load Azure script",
+    colors.buttonColors.azure,
+    scriptsFrame,
+    Color3.new(1, 1, 1)
+)
+
+local flyButton, flyClick = createButton(
+    "FlyButton",
+    "Fly",
+    "Load fly script",
+    colors.buttonColors.fly,
+    scriptsFrame,
+    Color3.new(1, 1, 1)
+)
+
+local infiniteYieldButton, infiniteYieldClick = createButton(
+    "InfiniteYieldButton",
+    "Infinite Yield",
+    "Load Infinite Yield admin script",
+    colors.buttonColors.infinite,
+    scriptsFrame,
+    Color3.new(1, 1, 1)
+)
+
+redzHubButton.Position = UDim2.new(0, 0, 0, 0)
+azureButton.Position = UDim2.new(0, 0, 0, 80)
+flyButton.Position = UDim2.new(0, 0, 0, 160)
+infiniteYieldButton.Position = UDim2.new(0, 0, 0, 240)
+scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 320)
+
+local function createDevInfo(name, info, position)
+    local infoFrame = create("Frame", {
+        Name = name,
+        Size = UDim2.new(1, 0, 0, 80),
+        Position = position,
+        BackgroundTransparency = 1,
+        Parent = devInfoFrame
+    })
+
+    local numDevInfos = #devInfoFrame:GetChildren()
+    devInfoFrame.CanvasSize = UDim2.new(0, 0, 0, numDevInfos * 91)
+
+    create("TextLabel", {
+        Size = UDim2.new(0.9, 0, 0, 30),
+        Position = UDim2.new(0, 10, 0, 5),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.GothamBold,
+        TextColor3 = colors.text,
+        TextSize = 18,
+        Text = name,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = infoFrame
+    })
+
+    create("TextLabel", {
+        Size = UDim2.new(0.9, 0, 0, 20),
+        Position = UDim2.new(0, 10, 0, 40),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.Gotham,
+        TextColor3 = colors.textDark,
+        TextSize = 14,
+        Text = info,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = infoFrame
+    })
+
+    return infoFrame
+end
+
+createDevInfo(
+    "Creator & Lead Developer",
+    "Mays (Bunny24_024)",
+    UDim2.new(0, 0, 0, 0)
+)
+
+createDevInfo(
+    "Contributor & Quality Assurance",
+    "AT1",
+    UDim2.new(0, 0, 0, 90)
+)
+
+createDevInfo(
+    "Software Version",
+    "5.0.0",
+    UDim2.new(0, 0, 0, 180)
+)
+
+createDevInfo(
+    "Programming Language",
+    "Luau - A Lua-based scripting language customized by Roblox",
+    UDim2.new(0, 0, 0, 270)
+)
+
+createDevInfo(
+    "Support & Contact (via Discord)",
+    "bunny24_024",
+    UDim2.new(0, 0, 0, 360)
+)
+
+createDevInfo(
+    "Initial Release Date",
+    "December 25, 2024",
+    UDim2.new(0, 0, 0, 450)
+)
+
+createDevInfo(
+    "Official Website",
+    "Visit us at: https://www.awtns.com",
+    UDim2.new(0, 0, 0, 540)
+)
+
+
+
+local customLabel = create("TextLabel", {
+    Size = UDim2.new(1, 0, 0, 30),
+    Position = UDim2.new(0, 0, 0, 0),
+    BackgroundTransparency = 1,
+    Font = Enum.Font.GothamBold,
+    TextColor3 = colors.text,
+    TextSize = 18,
+    Text = "Custom Script Execution",
+    TextXAlignment = Enum.TextXAlignment.Left,
+    Parent = customFrame
+})
+
+local customTextBox = create("TextBox", {
+    Size = UDim2.new(1, 0, 1, -90),
+    Position = UDim2.new(0, 0, 0, 40),
+    BackgroundColor3 = colors.foreground,
+    Font = Enum.Font.Code,
+    TextColor3 = colors.text,
+    TextSize = 14,
+    Text = "-- Enter your custom Lua script here --",
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextYAlignment = Enum.TextYAlignment.Top,
+    ClearTextOnFocus = false,
+    MultiLine = true,
+    TextWrapped = true,
+    ClipsDescendants = true,
+    RichText = true,
+    TextEditable = true,
+    Parent = customFrame
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 10),
+    Parent = customTextBox
+})
+
+customTextBox.Focused:Connect(function()
+    if customTextBox.Text == "-- Enter your custom Lua script here --" then
+        customTextBox.Text = ""
+    end
 end)
-end
-game.Players.LocalPlayer.Character.Animate.Disabled = true
-local Char = game.Players.LocalPlayer.Character
-local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController") 
- 
-for i,v in next, Hum:GetPlayingAnimationTracks() do
-v:AdjustSpeed(0)
-end
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
-end
- 
- 
- 
- 
-if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R6 then
- 
- 
- 
-local plr = game.Players.LocalPlayer
-local torso = plr.Character.Torso
-local flying = true
-local deb = true
-local ctrl = {f = 0, b = 0, l = 0, r = 0}
-local lastctrl = {f = 0, b = 0, l = 0, r = 0}
-local maxspeed = 50
-local speed = 0
- 
- 
-local bg = Instance.new("BodyGyro", torso)
-bg.P = 9e4
-bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-bg.cframe = torso.CFrame
-local bv = Instance.new("BodyVelocity", torso)
-bv.velocity = Vector3.new(0,0.1,0)
-bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
-if nowe == true then
-plr.Character.Humanoid.PlatformStand = true
-end
-while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
-game:GetService("RunService").RenderStepped:Wait() 
- 
-if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
-speed = speed+.5+(speed/maxspeed)
-if speed > maxspeed then
-speed = maxspeed
-end
-elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
-speed = speed-1
-if speed < 0 then
-speed = 0
-end
-end
-if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
-bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
-lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
-elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
-bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
-else
-bv.velocity = Vector3.new(0,0,0)
-end
---game.Players.LocalPlayer.Character.Animate.Disabled = true
-bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
-end
-ctrl = {f = 0, b = 0, l = 0, r = 0}
-lastctrl = {f = 0, b = 0, l = 0, r = 0}
-speed = 0
-bg:Destroy()
-bv:Destroy()
-plr.Character.Humanoid.PlatformStand = false
-game.Players.LocalPlayer.Character.Animate.Disabled = false
-tpwalking = false
- 
- 
- 
- 
-else
-local plr = game.Players.LocalPlayer
-local UpperTorso = plr.Character.UpperTorso
-local flying = true
-local deb = true
-local ctrl = {f = 0, b = 0, l = 0, r = 0}
-local lastctrl = {f = 0, b = 0, l = 0, r = 0}
-local maxspeed = 50
-local speed = 0
- 
- 
-local bg = Instance.new("BodyGyro", UpperTorso)
-bg.P = 9e4
-bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-bg.cframe = UpperTorso.CFrame
-local bv = Instance.new("BodyVelocity", UpperTorso)
-bv.velocity = Vector3.new(0,0.1,0)
-bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
-if nowe == true then
-plr.Character.Humanoid.PlatformStand = true
-end
-while nowe == true or game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 do
-wait() 
- 
-if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
-speed = speed+.5+(speed/maxspeed)
-if speed > maxspeed then
-speed = maxspeed
-end
-elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
-speed = speed-1
-if speed < 0 then
-speed = 0
-end
-end
-if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
-bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
-lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
-elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
-bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
-else
-bv.velocity = Vector3.new(0,0,0)
-end 
- 
-bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
-end
-ctrl = {f = 0, b = 0, l = 0, r = 0}
-lastctrl = {f = 0, b = 0, l = 0, r = 0}
-speed = 0
-bg:Destroy()
-bv:Destroy()
-plr.Character.Humanoid.PlatformStand = false
-game.Players.LocalPlayer.Character.Animate.Disabled = false
-tpwalking = false
- 
- 
- 
-end
- 
- 
- 
- 
- 
-end) 
- 
-local tis 
- 
-up.MouseButton1Down:connect(function()
-tis = up.MouseEnter:connect(function()
-while tis do
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,1,0)
-end
+
+customTextBox.FocusLost:Connect(function()
+    if customTextBox.Text == "" then
+        customTextBox.Text = "-- Enter your custom Lua script here --"
+    end
 end)
-end) 
- 
-up.MouseLeave:connect(function()
-if tis then
-tis:Disconnect()
-tis = nil
+
+local executeCustomButton = create("TextButton", {
+    Size = UDim2.new(0, 200, 0, 40),
+    Position = UDim2.new(0.5, -100, 1, -45),
+    BackgroundColor3 = colors.accent1,
+    Font = Enum.Font.GothamBold,
+    TextColor3 = colors.text,
+    TextSize = 16,
+    Text = "Execute Custom Script",
+    Parent = customFrame
+})
+
+create("UICorner", {
+    CornerRadius = UDim.new(0, 10),
+    Parent = executeCustomButton
+})
+
+local notificationQueue = {}
+local function showNotification(message, duration)
+    local notification = create("Frame", {
+        Size = UDim2.new(0, 300, 0, 60),
+        Position = UDim2.new(0.5, -150, 0, -70),
+        BackgroundColor3 = colors.foreground,
+        BorderSizePixel = 0,
+        Parent = screenGui
+    })
+
+    create("UICorner", {
+        CornerRadius = UDim.new(0, 10),
+        Parent = notification
+    })
+
+    create("TextLabel", {
+        Size = UDim2.new(1, -20, 1, 0),
+        Position = UDim2.new(0, 10, 0, 0),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.GothamSemibold,
+        TextColor3 = colors.text,
+        TextSize = 14,
+        Text = message,
+        TextWrapped = true,
+        Parent = notification
+    })
+
+    table.insert(notificationQueue, notification)
+
+    local function updateNotificationPositions()
+        for i, notif in ipairs(notificationQueue) do
+            local targetPosition = UDim2.new(0.5, -150, 0, 20 + (i - 1) * 70)
+            TweenService:Create(notif, TweenInfo.new(0.3), {Position = targetPosition}):Play()
+        end
+    end
+
+    updateNotificationPositions()
+
+    delay(duration or 3, function()
+        local index = table.find(notificationQueue, notification)
+        if index then
+            table.remove(notificationQueue, index)
+            updateNotificationPositions()
+        end
+        TweenService:Create(notification, TweenInfo.new(0.3), {Position = UDim2.new(0.5, -150, 0, -70)}):Play()
+        wait(0.3)
+        notification:Destroy()
+    end)
 end
-end) 
- 
-local dis 
- 
-down.MouseButton1Down:connect(function()
-dis = down.MouseEnter:connect(function()
-while dis do
-wait()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-1,0)
-end
+
+redzHubClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))()
+    end)
+    if success then
+        showNotification("redzHub Script loaded successfully!", 3, "success")
+        addLog("Loaded redzHubScript")
+    else
+        showNotification("Failed to load redzHub Script: " .. error, 3, "error")
+        addLog("Failed to load redzHub Script: " .. error)
+    end
 end)
-end) 
- 
-down.MouseLeave:connect(function()
-if dis then
-dis:Disconnect()
-dis = nil
-end
+
+azureClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
+    end)
+    if success then
+        showNotification("AzureScript loaded successfully!", 3, "success")
+        addLog("Loaded AzureScript")
+    else
+        showNotification("Failed to load AzureScript: " .. error, 3, "error")
+        addLog("Failed to load AzureScript: " .. error)
+    end
 end)
- 
- 
-game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
-wait(0.7)
-game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
-game.Players.LocalPlayer.Character.Animate.Disabled = false 
- 
+
+flyClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Rich0242/Roblox-multi-script/refs/heads/main/fly.lua"))()
+    end)
+    if success then
+        showNotification("FlyScript loaded successfully!", 3, "success")
+        addLog("Loaded FlyScript")
+    else
+        showNotification("Failed to load FlyScript: " .. error, 3, "error")
+        addLog("Failed to load FlyScript: " .. error)
+    end
 end)
- 
- 
-plus.MouseButton1Down:connect(function()
-speeds = speeds + 1
-speed.Text = speeds
-if nowe == true then
- 
- 
-tpwalking = false
-for i = 1, speeds do
-spawn(function() 
- 
-local hb = game:GetService("RunService").Heartbeat
- 
- 
-tpwalking = true
-local chr = game.Players.LocalPlayer.Character
-local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-while tpwalking and hb:Wait() and chr and hum and hum.Parent do
-if hum.MoveDirection.Magnitude > 0 then
-chr:TranslateBy(hum.MoveDirection)
-end
-end 
- 
+
+infiniteYieldClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end)
+    if success then
+        showNotification("Infinite Yield loaded successfully!", 3, "success")
+        addLog("Loaded Infinite Yield")
+    else
+        showNotification("Failed to load Infinite Yield: " .. error, 3, "error")
+        addLog("Failed to load Infinite Yield: " .. error)
+    end
 end)
-end
-end
+
+executeCustomButton.MouseButton1Click:Connect(function()
+    if customTextBox.Text == "" or customTextBox.Text == "-- Enter your custom Lua script here --" then
+        showNotification("Custom script field is empty!", 3, "error")
+        addLog("Failed to execute custom script: Custom script field is empty")
+        return
+    end
+
+    local success, error = pcall(function()
+        loadstring(customTextBox.Text)()
+    end)
+    if success then
+        showNotification("Custom script executed successfully!", 3, "success")
+        addLog("Executed custom script")
+    else
+        showNotification("Failed to execute custom script: " .. error, 3, "error")
+        addLog("Failed to execute custom script: " .. error)
+    end
 end)
-mine.MouseButton1Down:connect(function()
-if speeds == 1 then
-speed.Text = 'cannot be less than 1'
-wait(1)
-speed.Text = speeds
-else
-speeds = speeds - 1
-speed.Text = speeds
-if nowe == true then
-tpwalking = false
-for i = 1, speeds do
-spawn(function() 
- 
-local hb = game:GetService("RunService").Heartbeat
- 
- 
-tpwalking = true
-local chr = game.Players.LocalPlayer.Character
-local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-while tpwalking and hb:Wait() and chr and hum and hum.Parent do
-if hum.MoveDirection.Magnitude > 0 then
-chr:TranslateBy(hum.MoveDirection)
-end
-end 
- 
+
+closeButton.MouseButton1Click:Connect(function()
+    TweenService:Create(mainFrame, TweenInfo.new(0.3), {
+        Size = UDim2.new(0, 0, 0, 0),
+        Position = UDim2.new(0.5, 0, 0.5, 0)
+    }):Play()
+    wait(0.3)
+    screenGui:Destroy()
 end)
-end
-end
-end
-end) 
- 
-closebutton.MouseButton1Click:Connect(function()
-main:Destroy()
-end) 
- 
-mini.MouseButton1Click:Connect(function()
-up.Visible = false
-down.Visible = false
-onof.Visible = false
-plus.Visible = false
-speed.Visible = false
-mine.Visible = false
-mini.Visible = false
-mini2.Visible = true
-main.Frame.BackgroundTransparency = 1
-closebutton.Position = UDim2.new(0, 0, -1, 57)
-end) 
- 
-mini2.MouseButton1Click:Connect(function()
-up.Visible = true
-down.Visible = true
-onof.Visible = true
-plus.Visible = true
-speed.Visible = true
-mine.Visible = true
-mini.Visible = true
-mini2.Visible = false
-main.Frame.BackgroundTransparency = 0 
-closebutton.Position = UDim2.new(0, 0, -1, 27)
+
+local minimized = false
+minimizeButton.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    if minimized then
+        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, 700, 0, 50)}):Play()
+    else
+        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, 700, 0, 500)}):Play()
+    end
 end)
+
+local function switchTab(tabName)
+    scriptsFrame.Visible = tabName == "Scripts"
+    devInfoFrame.Visible = tabName == "Dev-Infos"
+    customFrame.Visible = tabName == "Custom"
+    logsFrame.Visible = tabName == "Logs"
+    
+    scriptsTab.BackgroundColor3 = tabName == "Scripts" and colors.accent1 or colors.foreground
+    devInfoTab.BackgroundColor3 = tabName == "Dev-Infos" and colors.accent1 or colors.foreground
+    customTab.BackgroundColor3 = tabName == "Custom" and colors.accent1 or colors.foreground
+    logsTab.BackgroundColor3 = tabName == "Logs" and colors.accent1 or colors.foreground
+end
+
+scriptsTab.MouseButton1Click:Connect(function()
+    switchTab("Scripts")
+end)
+
+devInfoTab.MouseButton1Click:Connect(function()
+    switchTab("Dev-Infos")
+end)
+
+customTab.MouseButton1Click:Connect(function()
+    switchTab("Custom")
+end)
+
+logsTab.MouseButton1Click:Connect(function()
+    switchTab("Logs")
+end)
+
+local dragging = false
+local dragStart
+local startPos
+
+titleBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+    end
+end)
+
+titleBar.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = false
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local delta = input.Position - dragStart
+        TweenService:Create(mainFrame, TweenInfo.new(0.1), {
+            Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        }):Play()
+    end
+end)
+
+mainFrame.Size = UDim2.new(0, 0, 0, 0)
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+TweenService:Create(mainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+    Size = UDim2.new(0, 700, 0, 500),
+    Position = UDim2.new(0.5, -350, 0.5, -250)
+}):Play()
+
+local blurEffect = create("BlurEffect", {
+    Name = "EnhancedGUIBlur",
+    Size = 0,
+    Parent = Lighting
+})
+
+local blurEffectEnabled = true
+
+local function toggleBlurEffect()
+    if blurEffectEnabled then
+        TweenService:Create(blurEffect, TweenInfo.new(0.5), {Size = 0}):Play()
+    else
+        TweenService:Create(blurEffect, TweenInfo.new(0.5), {Size = 10}):Play()
+    end
+    blurEffectEnabled = not blurEffectEnabled
+end
+
+minimizeButton.MouseButton1Click:Connect(toggleBlurEffect)
+
+TweenService:Create(blurEffect, TweenInfo.new(0.5), {Size = 10}):Play()
+
+screenGui.Destroying:Connect(function()
+    if Lighting:FindFirstChild("EnhancedGUIBlur") then
+        Lighting.EnhancedGUIBlur:Destroy()
+    end
+end)
+
+local function applyButtonHoverEffect(button)
+    local originalColor = button.BackgroundColor3
+    local hoverColor = Color3.new(
+        math.min(originalColor.R * 1.2, 1),
+        math.min(originalColor.G * 1.2, 1),
+        math.min(originalColor.B * 1.2, 1)
+    )
+
+    button.MouseEnter:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = hoverColor}):Play()
+    end)
+
+    button.MouseLeave:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = originalColor}):Play()
+    end)
+end
+
+applyButtonHoverEffect(redzHubButton)
+applyButtonHoverEffect(azureButton)
+applyButtonHoverEffect(flyButton)
+applyButtonHoverEffect(infiniteYieldButton)
+applyButtonHoverEffect(executeCustomButton)
+
+local function updateGuiSize()
+    local viewportSize = workspace.CurrentCamera.ViewportSize
+    local scale = math.clamp(viewportSize.Y / 1080, 0.5, 1)
+    local newSize, newPosition
+
+    if viewportSize.X < 800 then
+        newSize = UDim2.new(0, 400 * scale, 0, 300 * scale)
+        newPosition = UDim2.new(0.5, -175 * scale, 0.5, -125 * scale)
+    else
+        newSize = UDim2.new(0, 700 * scale, 0, 500 * scale)
+        newPosition = UDim2.new(0.5, -350 * scale, 0.5, -250 * scale)
+    end
+
+    TweenService:Create(mainFrame, TweenInfo.new(0.3), {
+        Size = newSize,
+        Position = newPosition
+    }):Play()
+end
+
+updateGuiSize()
+workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateGuiSize)
+showNotification("Bunny Hub loaded successfully!")
+switchTab("Scripts")
