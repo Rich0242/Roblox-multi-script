@@ -350,7 +350,7 @@ local function createDevInfo(name, info, position)
     })
 
     local numDevInfos = #devInfoFrame:GetChildren()
-    devInfoFrame.CanvasSize = UDim2.new(0, 0, 0, numDevInfos * 100)
+    devInfoFrame.CanvasSize = UDim2.new(0, 0, 0, numDevInfos * 91)
 
     create("TextLabel", {
         Size = UDim2.new(0.9, 0, 0, 30),
