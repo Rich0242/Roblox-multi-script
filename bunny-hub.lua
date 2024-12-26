@@ -169,13 +169,11 @@ local scriptsFrame = create("ScrollingFrame", {
     Parent = contentContainer
 })
 
-local devInfoFrame = create("Frame", {
-    Name = "devInfoFrame",
+local devInfoFrame = create("ScrollingFrame", {
     Size = UDim2.new(1, 0, 1, 0),
+    CanvasSize = UDim2.new(0, 0, 1, 720),
+    ScrollBarThickness = 10,
     BackgroundTransparency = 1,
-    BorderSizePixel = 0,
-    ClipsDescendants = true,
-    Visible = false,
     Parent = contentContainer
 })
 
@@ -345,15 +343,18 @@ scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 400)
 local function createDevInfo(name, info, position)
     local infoFrame = create("Frame", {
         Name = name,
-        Size = UDim2.new(1, 0, 0, 70),
+        Size = UDim2.new(1, 0, 0, 80),
         Position = position,
         BackgroundTransparency = 1,
         Parent = devInfoFrame
     })
 
+    local numDevInfos = #devInfoFrame:GetChildren()
+    devInfoFrame.CanvasSize = UDim2.new(0, 0, 0, numDevInfos * 100)
+
     create("TextLabel", {
-        Size = UDim2.new(0.7, 0, 0, 30),
-        Position = UDim2.new(0, 0, 0, 0),
+        Size = UDim2.new(0.9, 0, 0, 30),
+        Position = UDim2.new(0, 10, 0, 5),
         BackgroundTransparency = 1,
         Font = Enum.Font.GothamBold,
         TextColor3 = colors.text,
@@ -364,8 +365,8 @@ local function createDevInfo(name, info, position)
     })
 
     create("TextLabel", {
-        Size = UDim2.new(0.7, 0, 0, 20),
-        Position = UDim2.new(0, 0, 0, 35),
+        Size = UDim2.new(0.9, 0, 0, 20),
+        Position = UDim2.new(0, 10, 0, 40),
         BackgroundTransparency = 1,
         Font = Enum.Font.Gotham,
         TextColor3 = colors.textDark,
@@ -374,36 +375,53 @@ local function createDevInfo(name, info, position)
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = infoFrame
     })
-    create("UICorner", {
-        CornerRadius = UDim.new(0, 15),
-        Parent = toggle
-    })
 
-    create("UICorner", {
-        CornerRadius = UDim.new(0, 13),
-        Parent = toggleCircle
-    })
-
-    return devInfoFrame
+    return infoFrame
 end
 
 createDevInfo(
-    "Creator",
-    "Mays",
+    "Creator & Lead Developer",
+    "Mays (Bunny24_024)",
     UDim2.new(0, 0, 0, 0)
 )
 
 createDevInfo(
-    "Version",
-    "V5",
-    UDim2.new(0, 0, 0, 80)
+    "Contributor & Quality Assurance",
+    "AT1",
+    UDim2.new(0, 0, 0, 90)
 )
 
 createDevInfo(
-    "Contact pre Discord",
-    "bunny24_024",
-    UDim2.new(0, 0, 0, 160)
+    "Software Version",
+    "Bunny Hub V5",
+    UDim2.new(0, 0, 0, 180)
 )
+
+createDevInfo(
+    "Programming Language",
+    "Luau - A Lua-based scripting language customized by Roblox",
+    UDim2.new(0, 0, 0, 270)
+)
+
+createDevInfo(
+    "Support & Contact (via Discord)",
+    "bunny24_024",
+    UDim2.new(0, 0, 0, 360)
+)
+
+createDevInfo(
+    "Initial Release Date",
+    "December 25, 2024",
+    UDim2.new(0, 0, 0, 450)
+)
+
+createDevInfo(
+    "Official Website",
+    "Visit us at: https://www.awtns.com",
+    UDim2.new(0, 0, 0, 540)
+)
+
+
 
 local customLabel = create("TextLabel", {
     Size = UDim2.new(1, 0, 0, 30),
