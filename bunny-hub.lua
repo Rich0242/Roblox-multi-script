@@ -15,7 +15,7 @@ local function create(className, properties)
     return instance
 end
 
-
+-- Color palette
 local colors = {
     background = Color3.fromRGB(25, 25, 35),
     foreground = Color3.fromRGB(35, 35, 45),
@@ -33,12 +33,11 @@ local colors = {
 }
 
 local screenGui = create("ScreenGui", {
-    Name = "BunnyHubV6",
+    Name = "BunnyHub",
     ResetOnSpawn = false,
     ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
     Parent = playerGui
 })
-
 
 local mainFrame = create("Frame", {
     Name = "MainFrame",
@@ -77,7 +76,7 @@ local titleText = create("TextLabel", {
     Font = Enum.Font.GothamBold,
     TextColor3 = colors.text,
     TextSize = 22,
-    Text = "Bunny Hub",
+    Text = "Bunny Hub V5",
     TextXAlignment = Enum.TextXAlignment.Left,
     Parent = titleBar
 })
@@ -337,7 +336,7 @@ local infiniteYieldButton, infiniteYieldClick = createButton(
 
 redzHubButton.Position = UDim2.new(0, 0, 0, 0)
 azureButton.Position = UDim2.new(0, 0, 0, 80)
-flyButton.Position = UDim2.new(0, 0, 0, 240)
+flyButton.Position = UDim2.new(0, 0, 0, 160)
 infiniteYieldButton.Position = UDim2.new(0, 0, 0, 240)
 scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 320)
 
@@ -393,8 +392,8 @@ createDevInfo(
 )
 
 createDevInfo(
-    "GUI Version",
-    "Bunny Hub V6",
+    "Software Version",
+    "Bunny Hub V5",
     UDim2.new(0, 0, 0, 180)
 )
 
@@ -642,41 +641,23 @@ local function updateGuiSize()
     contentContainer.Size = UDim2.new(1, -20, 1, -90)
     contentContainer.Position = UDim2.new(0, 10, 0, 90)
     tabContainer.CanvasSize = UDim2.new(0, tabLayout.AbsoluteContentSize.X, 0, 0)
-    updateTitleBarForMobile()
-end
-
-local function updateTitleBarForMobile()
-    if isMobile then
-        titleText.TextSize = 18
-        titleText.Position = UDim2.new(0, 10, 0, 0)
-        minimizeButton.Size = UDim2.new(0, 25, 0, 25)
-        minimizeButton.Position = UDim2.new(1, -60, 0, 7.5)
-        closeButton.Size = UDim2.new(0, 25, 0, 25)
-        closeButton.Position = UDim2.new(1, -30, 0, 7.5)
-    else
-        titleText.TextSize = 22
-        titleText.Position = UDim2.new(0, 20, 0, 0)
-        minimizeButton.Size = UDim2.new(0, 30, 0, 30)
-        minimizeButton.Position = UDim2.new(1, -70, 0, 5)
-        closeButton.Size = UDim2.new(0, 30, 0, 30)
-        closeButton.Position = UDim2.new(1, -35, 0, 5)
-    end
 end
 
 minimizeButton.MouseButton1Click:Connect(function()
     minimized = not minimized
     if minimized then
         lastSize = mainFrame.Size
-        local minimizedHeight = isMobile and 35 or 40
-        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, lastSize.X.Offset, 0, minimizedHeight)}):Play()
+        TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = UDim2.new(0, lastSize.X.Offset, 0, 40)}):Play()
         titleText.Text = "BH"
         titleText.Position = UDim2.new(0, 10, 0, 0)
-        minimizeButton.Position = isMobile and UDim2.new(1, -60, 0, 5) or UDim2.new(1, -70, 0, 5)
-        closeButton.Position = isMobile and UDim2.new(1, -30, 0, 5) or UDim2.new(1, -35, 0, 5)
+        minimizeButton.Position = UDim2.new(1, -70, 0, 5)
+        closeButton.Position = UDim2.new(1, -35, 0, 5)
     else
         TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = lastSize}):Play()
         titleText.Text = "Bunny Hub"
-        updateTitleBarForMobile()
+        titleText.Position = UDim2.new(0, 20, 0, 0)
+        minimizeButton.Position = UDim2.new(1, -70, 0, 5)
+        closeButton.Position = UDim2.new(1, -35, 0, 5)
     end
 end)
 
@@ -786,7 +767,6 @@ local function applyButtonHoverEffect(button)
     end)
 end
 
-applyButtonHoverEffect(websiteButton)
 applyButtonHoverEffect(redzHubButton)
 applyButtonHoverEffect(azureButton)
 applyButtonHoverEffect(flyButton)
