@@ -15,7 +15,6 @@ local function create(className, properties)
     return instance
 end
 
--- Color palette
 local colors = {
     background = Color3.fromRGB(25, 25, 35),
     foreground = Color3.fromRGB(35, 35, 45),
@@ -76,7 +75,7 @@ local titleText = create("TextLabel", {
     Font = Enum.Font.GothamBold,
     TextColor3 = colors.text,
     TextSize = 22,
-    Text = "Bunny Hub V5",
+    Text = "Bunny Hub",
     TextXAlignment = Enum.TextXAlignment.Left,
     Parent = titleBar
 })
@@ -381,7 +380,7 @@ end
 
 createDevInfo(
     "Creator & Lead Developer",
-    "Mays (Bunny24_024)",
+    "Mays (bunny24_024)",
     UDim2.new(0, 0, 0, 0)
 )
 
@@ -393,7 +392,7 @@ createDevInfo(
 
 createDevInfo(
     "Software Version",
-    "Bunny Hub V5",
+    "Bunny Hub 6.1",
     UDim2.new(0, 0, 0, 180)
 )
 
