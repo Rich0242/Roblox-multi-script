@@ -301,6 +301,15 @@ local function createButton(name, text, description, color, parent)
     return button, clickArea
 end
 
+local speedHubXButton, speedHubXClick = createButton(
+    "speedHubXButton",
+    "Speed Hub X",
+    "Load Speed Hub X",
+    colors.buttonColors.speedx,
+    scriptsFrame,
+    Color3.new(1, 1, 1)
+)
+
 local redzHubButton, redzHubClick = createButton(
     "redzHubButton",
     "Redz Hub",
@@ -333,11 +342,12 @@ local infiniteYieldButton, infiniteYieldClick = createButton(
     scriptsFrame
 )
 
-redzHubButton.Position = UDim2.new(0, 0, 0, 0)
-azureButton.Position = UDim2.new(0, 0, 0, 80)
-flyButton.Position = UDim2.new(0, 0, 0, 160)
-infiniteYieldButton.Position = UDim2.new(0, 0, 0, 240)
-scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 320)
+speedHubXButton.Position = UDim2.new(0, 0, 0, 0)
+redzHubButton.Position = UDim2.new(0, 0, 0, 80)
+azureButton.Position = UDim2.new(0, 0, 0, 160)
+flyButton.Position = UDim2.new(0, 0, 0, 240)
+infiniteYieldButton.Position = UDim2.new(0, 0, 0, 320)
+scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 400)
 
 local function createDevInfo(name, info, position)
     local infoFrame = create("Frame", {
@@ -533,6 +543,19 @@ local function showNotification(message, duration)
         notification:Destroy()
     end)
 end
+
+speedHubXClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end)
+    if success then
+        showNotification("Speed Hub X Script loaded successfully!", 3, "success")
+        addLog("Loaded Speed Hub X Script")
+    else
+        showNotification("Failed to load Speed Hub X Script: " .. error, 3, "error")
+        addLog("Failed to load Speed Hub X Script: " .. error)
+    end
+end)
 
 redzHubClick.MouseButton1Click:Connect(function()
     local success, error = pcall(function()
@@ -796,6 +819,7 @@ local function applyButtonHoverEffect(button)
     end)
 end
 
+applyButtonHoverEffect(speedHubXButton)
 applyButtonHoverEffect(redzHubButton)
 applyButtonHoverEffect(azureButton)
 applyButtonHoverEffect(flyButton)
