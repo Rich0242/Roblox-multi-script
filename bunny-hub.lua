@@ -23,11 +23,11 @@ local colors = {
     text = Color3.fromRGB(240, 240, 240),
     textDark = Color3.fromRGB(180, 180, 180),
     buttonColors = {
-        redz = Color3.fromRGB(231, 76, 60),         -- Red
-        azure = Color3.fromRGB(100, 180, 255),       -- Light Blue
-        fly = Color3.fromRGB(155, 89, 182),         -- Purple
-        infinite = Color3.fromRGB(230, 126, 34),   -- Orange
-        speedx = Color3.fromRGB(39, 174, 96)        -- Green
+        redz = Color3.fromRGB(255, 0, 0),           -- Red
+        azure = Color3.fromRGB(0, 191, 255),        -- Light Blue  
+        fly = Color3.fromRGB(128, 0, 128),          -- Purple
+        infinite = Color3.fromRGB(255, 140, 0),     -- Orange
+        speedx = Color3.fromRGB(0, 255, 0)          -- Green
     }
 }
 
@@ -307,7 +307,6 @@ local speedHubXButton, speedHubXClick = createButton(
     "Load Speed Hub X",
     colors.buttonColors.speedx,
     scriptsFrame,
-    Color3.new(1, 1, 1)
 )
 
 local redzHubButton, redzHubClick = createButton(
