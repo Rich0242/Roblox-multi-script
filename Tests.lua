@@ -23,11 +23,11 @@ local colors = {
     text = Color3.fromRGB(240, 240, 240),
     textDark = Color3.fromRGB(180, 180, 180),
     buttonColors = {
-        website = Color3.fromRGB(100, 180, 255),    -- Light Blue
-        hoho = Color3.fromRGB(39, 174, 96),         -- Green
-        azure = Color3.fromRGB(230, 126, 34),       -- Orange
+        redz = Color3.fromRGB(231, 76, 60),         -- Red
+        azure = Color3.fromRGB(100, 180, 255),       -- Light Blue
         fly = Color3.fromRGB(155, 89, 182),         -- Purple
-        infinite = Color3.fromRGB(241, 196, 15)     -- Yellow
+        infinite = Color3.fromRGB(230, 126, 34),   -- Orange
+        speedx = Color3.fromRGB(39, 174, 96)        -- Green
     }
 }
 
@@ -301,11 +301,19 @@ local function createButton(name, text, description, color, parent)
     return button, clickArea
 end
 
+local speedHubXButton, speedHubXClick = createButton(
+    "speedHubXButton",
+    "Speed Hub X",
+    "Load Speed Hub X",
+    colors.buttonColors.speedx,
+    scriptsFrame
+)
+
 local redzHubButton, redzHubClick = createButton(
     "redzHubButton",
     "Redz Hub",
     "Load RedZ script",
-    colors.buttonColors.hoho,
+    colors.buttonColors.redz,
     scriptsFrame
 )
 
@@ -333,11 +341,12 @@ local infiniteYieldButton, infiniteYieldClick = createButton(
     scriptsFrame
 )
 
-redzHubButton.Position = UDim2.new(0, 0, 0, 0)
-azureButton.Position = UDim2.new(0, 0, 0, 80)
-flyButton.Position = UDim2.new(0, 0, 0, 160)
-infiniteYieldButton.Position = UDim2.new(0, 0, 0, 240)
-scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 320)
+speedHubXButton.Position = UDim2.new(0, 0, 0, 0)
+redzHubButton.Position = UDim2.new(0, 0, 0, 80)
+azureButton.Position = UDim2.new(0, 0, 0, 160)
+flyButton.Position = UDim2.new(0, 0, 0, 240)
+infiniteYieldButton.Position = UDim2.new(0, 0, 0, 320)
+scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 400)
 
 local function createDevInfo(name, info, position)
     local infoFrame = create("Frame", {
@@ -534,6 +543,19 @@ local function showNotification(message, duration)
     end)
 end
 
+speedHubXClick.MouseButton1Click:Connect(function()
+    local success, error = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end)
+    if success then
+        showNotification("Speed Hub X Script loaded successfully!", 3, "success")
+        addLog("Loaded Speed Hub X Script")
+    else
+        showNotification("Failed to load Speed Hub X Script: " .. error, 3, "error")
+        addLog("Failed to load Speed Hub X Script: " .. error)
+    end
+end)
+
 redzHubClick.MouseButton1Click:Connect(function()
     local success, error = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))()
@@ -693,55 +715,44 @@ local dragStart
 local dragInput
 local startPos
 
-local function update(input)
+local function updateDrag(input)
+    if not dragging then return end
+    
     local delta = input.Position - dragStart
     local targetPosition = UDim2.new(
         startPos.X.Scale,
         startPos.X.Offset + delta.X,
-        startPos.Y.Scale, 
+        startPos.Y.Scale,
         startPos.Y.Offset + delta.Y
     )
     
-    -- Keep GUI within screen bounds
-    local viewportSize = workspace.CurrentCamera.ViewportSize
-    local frameSize = mainFrame.AbsoluteSize
-    
-    local minX = frameSize.X/2
-    local maxX = viewportSize.X - frameSize.X/2
-    local minY = frameSize.Y/2 
-    local maxY = viewportSize.Y - frameSize.Y/2
-    
-    local newX = math.clamp(targetPosition.X.Offset + (viewportSize.X * targetPosition.X.Scale), minX, maxX)
-    local newY = math.clamp(targetPosition.Y.Offset + (viewportSize.Y * targetPosition.Y.Scale), minY, maxY)
-    
-    TweenService:Create(mainFrame, TweenInfo.new(0.1), {
-        Position = UDim2.new(0, newX, 0, newY)
-    }):Play()
+    mainFrame.Position = targetPosition
 end
 
 titleBar.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
-        dragStart = input.Position 
+        dragStart = input.Position
         startPos = mainFrame.Position
-        dragInput = input
-
-        input.Changed:Connect(function()
+        
+        local connection
+        connection = input.Changed:Connect(function()
             if input.UserInputState == Enum.UserInputState.End then
                 dragging = false
+                connection:Disconnect()
             end
         end)
     end
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        update(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        updateDrag(input)
     end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
-    if input == dragInput then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = false
     end
 end)
@@ -797,6 +808,7 @@ local function applyButtonHoverEffect(button)
     end)
 end
 
+applyButtonHoverEffect(speedHubXButton)
 applyButtonHoverEffect(redzHubButton)
 applyButtonHoverEffect(azureButton)
 applyButtonHoverEffect(flyButton)
@@ -806,5 +818,55 @@ applyButtonHoverEffect(executeCustomButton)
 updateGuiSize()
 workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateGuiSize)
 
-showNotification("Bunny Hub loaded successfully!")
+local function checkMainServices()
+    local services = {
+        Players,
+        TweenService,
+        UserInputService,
+        RunService,
+        Lighting,
+        player,
+        playerGui
+    }
+
+    for _, service in ipairs(services) do
+        if not service then
+            return false
+        end
+    end
+    return true
+end
+
+local function checkGuiComponents()
+    local components = {
+        screenGui,
+        scriptsFrame,
+        speedHubXButton,
+        redzHubButton,
+        azureButton,
+        flyButton,
+        infiniteYieldButton,
+        mainFrame,
+        devInfoFrame,
+        tabsFrame,
+        contentsFrame
+    }
+
+    for _, component in ipairs(components) do
+        if not component then
+            return false
+        end
+    end
+    return true
+end
+
+if checkMainServices() then
+    if checkGuiComponents() then
+        showNotification("Bunny Hub loaded successfully!")
+    else
+        showNotification("GUI components failed to load", 3, "error")
+    end
+else
+    showNotification("Core services failed to load", 3, "error")
+end
 switchTab("Scripts")
