@@ -314,7 +314,7 @@ local redzHubButton, redzHubClick = createButton(
     "redzHubButton",
     "Redz Hub",
     "Load RedZ script",
-    colors.buttonColors.hoho,
+    colors.buttonColors.redz,
     scriptsFrame
 )
 
