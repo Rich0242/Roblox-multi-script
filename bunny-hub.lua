@@ -400,7 +400,7 @@ createDevInfo(
 )
 
 createDevInfo(
-    "Software Version",
+    "GUI Version",
     "Bunny Hub 6.1",
     UDim2.new(0, 0, 0, 180)
 )
