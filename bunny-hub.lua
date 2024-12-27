@@ -880,5 +880,4 @@ if checkMainServices() then
 else
     showNotification("Core services failed to load", 3, "error")
 end
-
 switchTab("Scripts")
