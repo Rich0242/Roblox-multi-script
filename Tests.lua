@@ -113,11 +113,14 @@ create("UICorner", {
     Parent = closeButton
 })
 
-local tabContainer = create("Frame", {
+
+local tabContainer = create("ScrollingFrame", {
     Name = "TabContainer",
-    Size = UDim2.new(1, -40, 0, 40),
-    Position = UDim2.new(0, 20, 0, 60),
+    Size = UDim2.new(1, -20, 0, 30),
+    Position = UDim2.new(0, 10, 0, 50),
     BackgroundTransparency = 1,
+    ScrollBarThickness = 4,
+    ScrollingDirection = Enum.ScrollingDirection.X,
     Parent = mainFrame
 })
 
@@ -828,28 +831,3 @@ else
 end
 
 switchTab("Scripts")
-
-local function adjustTitleBarSize()
-    local screenWidth, screenHeight = guiGetScreenSize()
-    if screenWidth <= 768 then -- Assuming 768px width or less is a mobile device
-        titleBar.width = screenWidth * 0.9
-        titleBar.height = 50 -- Adjust as needed for mobile
-    else
-        titleBar.width = screenWidth * 0.7
-        titleBar.height = 70 -- Adjust as needed for PC
-    end
-end
-
-local function onMinimize()
-    adjustTitleBarSize()
-    -- Additional code to handle minimize
-end
-
-local function onRestore()
-    adjustTitleBarSize()
-    -- Additional code to handle restore
-end
-
--- Assuming you have event listeners for minimize and restore
-addEventHandler("onClientGUIMinimize", root, onMinimize)
-addEventHandler("onClientGUIRestore", root, onRestore)
