@@ -645,7 +645,7 @@ local function updateGuiSize()
     isMobile = viewportSize.X < 700 or viewportSize.Y < 500
     
     if isMobile then
-        lastSize = UDim2.new(0, 300, 0, 300)
+        lastSize = UDim2.new(0, 300, 0, 360)
     else
         lastSize = UDim2.new(0, 700, 0, 500)
     end
@@ -869,4 +869,5 @@ if checkMainServices() then
 else
     showNotification("Core services failed to load", 3, "error")
 end
+
 switchTab("Scripts")
