@@ -23,11 +23,11 @@ local colors = {
     text = Color3.fromRGB(240, 240, 240),
     textDark = Color3.fromRGB(180, 180, 180),
     buttonColors = {
-        website = Color3.fromRGB(100, 180, 255),    -- Light Blue
-        hoho = Color3.fromRGB(39, 174, 96),         -- Green
-        azure = Color3.fromRGB(230, 126, 34),       -- Orange
+        redz = Color3.fromRGB(231, 76, 60),         -- Red
+        azure = Color3.fromRGB(100, 180, 255),       -- Light Blue
         fly = Color3.fromRGB(155, 89, 182),         -- Purple
-        infinite = Color3.fromRGB(241, 196, 15)     -- Yellow
+        infinite = Color3.fromRGB(230, 126, 34),   -- Orange
+        speedx = Color3.fromRGB(39, 174, 96)        -- Green
     }
 }
 
