@@ -645,7 +645,7 @@ local function updateGuiSize()
     isMobile = viewportSize.X < 700 or viewportSize.Y < 500
     
     if isMobile then
-        lastSize = UDim2.new(0, 300, 0, 360)
+        lastSize = UDim2.new(0, 340, 0, 460)
     else
         lastSize = UDim2.new(0, 700, 0, 500)
     end
