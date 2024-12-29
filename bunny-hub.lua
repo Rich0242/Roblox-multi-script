@@ -863,11 +863,14 @@ end
 if checkMainServices() then
     if checkGuiComponents() then
         showNotification("Bunny Hub loaded successfully!")
+		addLog("Bunny Hub loaded successfully!")
     else
         showNotification("GUI components failed to load", 3, "error")
+		addLog("GUI components failed to load", 3, "error")
     end
 else
     showNotification("Core services failed to load", 3, "error")
+    addLog("Core services failed to load", 3, "error")
 end
 
 switchTab("Scripts")
